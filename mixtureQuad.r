@@ -122,7 +122,6 @@ mu = mean(mu0)*1
 mu3 = mean(mu03)*1
 
 Sigmasq = Sigmas^2
-source('rotation3mu.r')
 
 XQ = Quad_Mixture
 theta = max((sum(XQ - Jm - Adjmu*mu^2))/sum(tSigma),1/sum(tSigma))
@@ -137,7 +136,7 @@ output = get_pvalTRUENC(p,Quad_Mixture,JV,Jm,Jv,theta,psi,SigmaList,tSigma,tSigm
 pvalue = output$p[1]
 LogLR  = output$p[2]
 posterPr = output$prob
-Est = list(pi=output$est$a[5],mu=output$est$a[3],mu3=output$est$a[4],logpsi=output$est$a[1],logtheta=output$est$a[2])
+Est = list(pi=output$est$a[5],mu=output$est$a[3]/20,mu3=output$est$a[4]/20^3,logpsi=output$est$a[2]-2*log(20),logtheta=output$est$a[2]-4*log(20))
 return (list(pvalue=pvalue,LogLR=LogLR,posterPr=posterPr,Est=Est))
 }
 

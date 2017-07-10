@@ -94,7 +94,7 @@ return (V)
 
 find_GlobalO = function(theta,psi,mu,mu3,p,logL){
 a=NULL
-o= optimx(c(theta,psi,mu,mu3,p),log_L00,control=list(maximize=TRUE),upper=c(Inf,Inf,Inf,Inf,1),lower=c(-Inf,-Inf,-Inf,-Inf,0),method='L-BFGS-B')
+invisible(capture.output(o<- optimx(c(theta,psi,mu,mu3,p),log_L00,control=list(maximize=TRUE),upper=c(Inf,Inf,Inf,Inf,1),lower=c(-Inf,-Inf,-Inf,-Inf,0),method='L-BFGS-B')))
 vm00 = as.vector(o[1:5])
 L00 = o[6]
 
@@ -112,24 +112,24 @@ return (list(a=c(theta,psi,mu,mu3,p),logL = logL))
 find_GlobalOS = function(theta,psi,mu,mu3,p,logL){
 a=NULL
 
-thetaX = seq(-2*theta,2*theta,length.out=5)
-psiX = seq(-2*psi,2*psi,length.out=5)
+thetaX = seq(-2*theta,2*theta,length.out=4)
+psiX = seq(-2*psi,2*psi,length.out=4)
 pX = seq(0.01,3*p,length.out=4)
-muX = seq(-1*mu,1*mu,length.out=5)
-mu3X = seq(-1*mu3,1*mu3,length.out=5)
+muX = seq(-1*mu,1*mu,length.out=4)
+mu3X = seq(-1*mu3,1*mu3,length.out=4)
 
 
 #cat(X,'\n')
 vm00X = NULL
 L00X = NULL
 
-for (i in 1:5){
-for (j in 1:5){
+for (i in 1:4){
+for (j in 1:4){
 for (k in 1:4){
-for (m in 1:5){
-for (l in 1:5){
+for (m in 1:4){
+for (l in 1:4){
 
-o= optimx(c(thetaX[i],psiX[j],muX[m],mu3X[l],pX[k]),log_L00,control=list(maximize=TRUE),upper=c(Inf,Inf,Inf,Inf,1),lower=c(-Inf,-Inf,-Inf,-Inf,0),method='L-BFGS-B')
+tryCatch(invisible(capture.output(o<- optimx(c(thetaX[i],psiX[j],muX[m],mu3X[l],pX[k]),log_L00,control=list(maximize=TRUE),upper=c(Inf,Inf,Inf,Inf,1),lower=c(-Inf,-Inf,-Inf,-Inf,0),method='L-BFGS-B'))))
 vm00X = cbind(vm00X,unlist(o[1:5]))
 L00X = c(L00X,unlist(o[6]))
 }
@@ -166,10 +166,6 @@ library(MASS)
 
 get_pvalTRUENC = function(p,X,J,Jm,Jv,theta,psi,SigmaList,tSigma,tSigma2,tSigma3,dSigma,Adjmu,Adjmu2,Adjmu3,Adjmu4,mu,mu3,perm){
 
-cat(p,'\n')
-
-
-
 X<<-X
 J<<-J
 Jm<<-Jm
@@ -186,9 +182,6 @@ Adjmu4<<-Adjmu4
 mu<<-mu
 mu3<<-mu3
 
-
-cat(p,'\n')
-
 logH0 = log_L(rep(0,length(X)),X,Jm,Jv,theta,psi,tSigma,tSigma2,tSigma3,dSigma,Adjmu,Adjmu2,Adjmu3,Adjmu4,mu,mu3)
 #cat(m00,p,'\n')
 
@@ -197,11 +190,11 @@ ll = log_L(aaaa*0,X,Jm,Jv,theta,psi,tSigma,tSigma2,tSigma3,dSigma,Adjmu,Adjmu2,A
 res2 <- try(B <- find_GlobalOS(theta,psi,mu,mu3,p,ll))
 Bxx = B
 logHa = B$logL
-cat('AA',B$a,'\n')
+
 pp =getP(unlist(B$a))
 
 T = unlist(logHa) - unlist(logH0)
-cat('TT',T,'\n')
+
 
 if (T <= 0){ 
 perm=2

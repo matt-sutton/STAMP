@@ -268,14 +268,14 @@ return (FALSE)
 
 
 findGlobalSO = function(muin,tauin,pin){
-o= optimx(c(muin,tauin,pin),log_LS,control=list(maximize=TRUE),upper=c(Inf,Inf,1),lower=c(-Inf,-Inf,0),method='L-BFGS-B')
+invisible(capture.output(o<- optimx(c(muin,tauin,pin),log_LS,control=list(maximize=TRUE),upper=c(Inf,Inf,1),lower=c(-Inf,-Inf,0),method='L-BFGS-B')))
 vm00 = as.vector(o[1:3])
 L00 = o[4]
 return (list(est=vm00,L=L00))
 }
 
 findGlobalSOO = function(tauin){
-o= optimx(c(tauin),log_L0S,control=list(maximize=TRUE),method='L-BFGS-B')
+invisible(capture.output(o<- optimx(c(tauin),log_L0S,control=list(maximize=TRUE),method='L-BFGS-B')))
 vm00 = as.vector(o[1])
 L00 = o[2]
 return (list(est=vm00,L=L00))

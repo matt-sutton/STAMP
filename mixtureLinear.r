@@ -113,6 +113,13 @@ Adjmu = c(Adjmu,sum(invS))
 Adjmu2 = c(Adjmu2,4*sum(invS2))
 Adjmu3 = c(Adjmu3,4*sum(invS%*%diag(invS)))
 
+T = S
+SS = sum(Sigma)
+Sum = c(Sum,SS)
+invdelta= c(invdelta,1/sum(diag(Sigma)))
+Linear_Mixture=c(Linear_Mixture,sum(T)/sqrt(sum(diag(Sigma))))
+
+
 }
 
 
