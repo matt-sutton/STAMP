@@ -1,0 +1,10 @@
+> rm(list=ls())
+> load('DataExample_SC11')
+> ls()
+[1] "ListBeta" "ListCor"  "ListSE"   "MafList" 
+> length(ListBeta)
+[1] 20
+> length(ListBeta[[1]])
+[1] 210
+> source('mixtureQuad.r')
+> mixtureQuad(1000,ListBeta,ListSE,ListCor,MafList) # run mixure model with quadratic statistic
