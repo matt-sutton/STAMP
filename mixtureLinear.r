@@ -6,7 +6,7 @@ library('mvnfast')
 library('CompQuadForm')
 
 #
-# Conduct asociation analysis with quadartic test 
+# Conduct asociation analysis with linear test 
 # under mixture model
 #
 # Input parameters: 
@@ -135,11 +135,10 @@ p=0.25
 
 output = get_pval(p,XL,JV,muL,invdelta,Sum,Omega1,Omega2,tauL,perm)
 
-
-pvalue = output$p[1]
-LogLR  = output$p[2]
-posterPr = output$prob
-Est = list(pi=output$est$a[5],mu=output$est$a[3],mu3=output$est$a[4],logpsi=output$est$a[1],logtheta=output$est$a[2])
+pvalue = output$pv
+LogLR  = output$T
+posterPr = output$pp
+Est = output$Est
 return (list(pvalue=pvalue,LogLR=LogLR,posterPr=posterPr,Est=Est))
 }
 

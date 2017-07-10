@@ -379,7 +379,7 @@ if (pval>0.1){break}
 }
 vectT[vectT<0]=0
 pval = mean(Tobs<=vectT)
-return (list(pv=pval,pp = gamma1p))
+return (list(pv=pval,T=T,pp = gamma1p,Est=list(pi=pin,mu=muin,tau=tauin)))
 }
 
 
