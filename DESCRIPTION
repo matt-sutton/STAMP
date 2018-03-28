@@ -1,0 +1,23 @@
+Package: STAMP
+Type: Package
+Title: STAMP Subset Testing and Analysis of Multiple Phenotypes
+Version: 0.1
+Author: Andriy Derkach, Ruth Pfeiffer
+Maintainer: Andriy Derkach <andriy.derkach@nih.gov>
+Description: We develop a flexible procedure (STAMP) based on mixture 
+models to perform region based meta-analysis of different phenotypes 
+using data from different GWAS and identify subsets of associated 
+phenotypes. To run variance-component (quadratic test) under mixture 
+model use mixtureQuad and mixtureLinear to run for 
+burden (linear) tests.
+License:  What license is it under?
+Imports: R (>= 3.2.1),
+         psych,
+         pscl,
+         optimx,
+         nleqslv,
+         mvnfast,
+         CompQuadForm
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
